@@ -1,76 +1,60 @@
-const langData = {
-  uk: {
-    welcome: "YO! ВАС ВІТАЄ РБК-ГРУП", enter: "↑<br>УВІЙТИ НА САЙТ",
-    cat: "КАТАЛОГ", comp: "КОМПАНІЯ", collab: "СПІВПРАЦЯ", cont: "КОНТАКТИ",
-    hero: "Партнерська програма для забудовників",
-    f1: "Власне виробництво", f2: "Виготовлення під замовлення",
-    f3: "Умови для забудовників", f4: "Великий склад",
-    catTitle: "Каталог продукції", t1: "Бруківка", t2: "Бордюри", t3: "Блоки", t4: "Дизайн"
-  },
-  en: {
-    welcome: "YO! WELCOME TO RBK-GROUP", enter: "↑<br>ENTER THE SITE",
-    cat: "CATALOG", comp: "COMPANY", collab: "COLLABORATION", cont: "CONTACTS",
-    hero: "Partner Program for Developers",
-    f1: "Own production", f2: "Custom manufacturing",
-    f3: "Terms for developers", f4: "Big warehouse",
-    catTitle: "Product Catalog", t1: "Paving", t2: "Borders", t3: "Blocks", t4: "Design"
-  }
-};
+// Кастомний курсор
+const cursor = document.querySelector('.cursor');
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+});
 
 // Функція перемикання категорій
-function showCategory(categoryId, btn) {
-    // 1. Приховати весь контент категорій
-    const contents = document.querySelectorAll('.category-content');
-    contents.forEach(content => content.classList.remove('active'));
+function showCategory(categoryId, tabId) {
+    // Ховаємо весь контент
+    document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
+    // Знімаємо активність з кнопок
+    document.querySelectorAll('.c-tab').forEach(t => t.classList.remove('active'));
+    
+    // Активуємо потрібне
+    const targetCat = document.getElementById('cat-' + categoryId);
+    const targetTab = document.getElementById(tabId);
+    
+    if(targetCat) targetCat.classList.add('active');
+    if(targetTab) targetTab.classList.add('active');
 
-    // 2. Зняти клас active з усіх кнопок табів
-    const tabs = document.querySelectorAll('.c-tab');
-    tabs.forEach(tab => tab.classList.remove('active'));
-
-    // 3. Показати потрібну категорію
-    const targetCategory = document.getElementById('cat-' + categoryId);
-    if(targetCategory) targetCategory.classList.add('active');
-
-    // 4. Активувати кнопку
-    if (btn) {
-        btn.classList.add('active');
-    } else {
-        // Якщо натиснуто через меню, знайти кнопку
-        const tabMap = { 'paving': 't-tab1', 'borders': 't-tab2', 'blocks': 't-tab3', 'design': 't-tab4' };
-        const tabBtn = document.getElementById(tabMap[categoryId]);
-        if(tabBtn) tabBtn.classList.add('active');
+    // Скролимо до каталогу, якщо натиснули кнопку в Hero
+    if (tabId === 't-tab1' || tabId === 't-tab3') {
         document.querySelector('.catalog-section').scrollIntoView({ behavior: 'smooth' });
     }
 }
 
-function changeLang(lang) {
-  document.getElementById('t-welcome').innerText = langData[lang].welcome;
-  document.getElementById('t-enter-btn').innerHTML = langData[lang].enter;
-  document.getElementById('t-nav-cat').innerText = langData[lang].cat;
-  document.getElementById('t-nav-comp').innerText = langData[lang].comp;
-  document.getElementById('t-nav-collab').innerText = langData[lang].collab;
-  document.getElementById('t-nav-cont').innerText = langData[lang].cont;
-  document.getElementById('t-hero-h1').innerText = langData[lang].hero;
-  document.getElementById('t-f1').innerText = langData[lang].f1;
-  document.getElementById('t-f2').innerText = langData[lang].f2;
-  document.getElementById('t-f3').innerText = langData[lang].f3;
-  document.getElementById('t-f4').innerText = langData[lang].f4;
-  document.getElementById('t-cat-title').innerText = langData[lang].catTitle;
-  document.getElementById('t-tab1').innerText = langData[lang].t1;
-  document.getElementById('t-tab2').innerText = langData[lang].t2;
-  document.getElementById('t-tab3').innerText = langData[lang].t3;
-  document.getElementById('t-tab4').innerText = langData[lang].t4;
-  document.getElementById('active-lang').innerText = lang.toUpperCase();
+// Скрол анімація
+function reveal() {
+    document.querySelectorAll(".reveal").forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active");
+    });
 }
 
+// Вхід на сайт
 function enterSite() {
-  const splash = document.getElementById('welcome-screen');
-  const site = document.getElementById('site-wrapper');
-  splash.style.transition = '0.8s';
-  splash.style.opacity = '0';
-  setTimeout(() => {
-    splash.style.display = 'none';
-    site.style.display = 'block';
-    setTimeout(() => { site.style.opacity = '1'; }, 50);
-  }, 800);
+    const splash = document.getElementById('welcome-screen');
+    const site = document.getElementById('site-wrapper');
+    splash.style.opacity = '0';
+    setTimeout(() => {
+        splash.style.display = 'none';
+        site.style.display = 'block';
+        setTimeout(() => { 
+            site.style.opacity = '1'; 
+            window.addEventListener("scroll", reveal);
+            reveal(); 
+        }, 50);
+    }, 600);
 }
+
+// Фоновий текст
+window.onload = () => {
+    const layer = document.getElementById('pattern-layer');
+    for (let i = 0; i < 80; i++) {
+        const div = document.createElement('div');
+        div.className = 'bg-word';
+        div.innerText = 'RBK-GROUP';
+        layer.appendChild(div);
+    }
+};
