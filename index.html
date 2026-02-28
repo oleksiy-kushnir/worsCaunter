@@ -1,38 +1,152 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RBK-GROUP | Рівненська Бруківка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-  <textarea id="textArea" placeholder="Пиши тут..."></textarea>
 
-  <div class="bar">
-    <div class="counter">
-      <div class="number" id="words">0</div>
-      <div class="text">Words</div>
+<div id="welcome-screen">
+  <div class="welcome-card">
+    <div class="logo-main">
+      <img src="https://rivbruk.com.ua/wp-content/themes/rivbruk/assets/img/logo.svg" alt="РівБрук">
+      <div class="logo-text">РівБрук<span>РІВНЕНСЬКА БРУКІВКА</span></div>
     </div>
-
-    <div class="counter">
-      <div class="number" id="chars">0</div>
-      <div class="text">Characters</div>
-    </div>
-
-    <div class="counter">
-      <div class="number" id="chars">0</div>
-      <div class="text">Spaces</div>
-    </div>
-
-    <div class="counter">
-      <div class="number" id="chars">0</div>
-      <div class="text">Abr</div>
-    </div>
-
+    <h1 class="rbk-title">RBK-GROUP</h1>
+    <p id="t-welcome" class="rbk-subtitle">YO! ВАС ВІТАЄ РБК-ГРУП</p>
+    <p class="rbk-info">PREMIUM BRUKIVKA • 2026 • RIVNE</p>
+    <button id="t-enter-btn" class="enter-btn" onclick="enterSite()">↑<br>УВІЙТИ НА САЙТ</button>
   </div>
 </div>
+
+<div id="site-wrapper" style="display:none; opacity:0;">
+  
+  <header class="header">
+    <div class="container nav-row">
+      <div class="logo">
+        <img src="https://rivbruk.com.ua/wp-content/themes/rivbruk/assets/img/logo.svg" alt="Logo">
+      </div>
+      
+      <ul class="nav-menu">
+        <li class="has-sub">
+          <span id="t-nav-cat">КАТАЛОГ</span> ▼
+          <ul class="submenu">
+            <li onclick="showCategory('paving')">Бруківка</li>
+            <li onclick="showCategory('borders')">Бордюри</li>
+            <li onclick="showCategory('blocks')">Будівельні блоки</li>
+            <li onclick="showCategory('design')">Елементи дизайну</li>
+          </ul>
+        </li>
+        <li id="t-nav-comp">КОМПАНІЯ</li>
+        <li class="has-sub">
+          <span id="t-nav-collab">СПІВПРАЦЯ</span> ▼
+          <ul class="submenu">
+            <li>Партнерам</li>
+            <li>Доставка</li>
+            <li>Гарантія</li>
+          </ul>
+        </li>
+        <li id="t-nav-cont">КОНТАКТИ</li>
+      </ul>
+
+      <div class="nav-right">
+        <div class="lang-selector">
+          <span id="active-lang">UK</span> ▼
+          <div class="lang-dropdown">
+            <div onclick="changeLang('uk')">UK (UA)</div>
+            <div onclick="changeLang('en')">EN (US)</div>
+            <div onclick="changeLang('ru')">RU (RU)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <p class="brand-label">РБК-ГРУП</p>
+      <h1 id="t-hero-h1">Партнерська програма для забудовників</h1>
+      <div class="hero-btns">
+        <div class="h-box green">БРУКІВКА</div>
+        <div class="h-box berry">БУДІВЕЛЬНІ БЛОКИ</div>
+        <div class="h-box yellow">АКТУАЛЬНИЙ ПРАЙС</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container feature-grid">
+      <div class="f-item">
+        <div class="f-icon">🏭</div>
+        <p id="t-f1">Власне виробництво</p>
+      </div>
+      <div class="f-item">
+        <div class="f-icon">📐</div>
+        <p id="t-f2">Виготовлення під замовлення</p>
+      </div>
+      <div class="f-item">
+        <div class="f-icon">🤝</div>
+        <p id="t-f3">Умови для забудовників</p>
+      </div>
+      <div class="f-item">
+        <div class="f-icon">📦</div>
+        <p id="t-f4">Великий склад</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="catalog-section container">
+    <h2 id="t-cat-title">Каталог продукції</h2>
+    <div class="catalog-tabs">
+      <button class="c-tab active" id="t-tab1" onclick="showCategory('paving', this)">Бруківка</button>
+      <button class="c-tab" id="t-tab2" onclick="showCategory('borders', this)">Бордюри</button>
+      <button class="c-tab" id="t-tab3" onclick="showCategory('blocks', this)">Будівельні блоки</button>
+      <button class="c-tab" id="t-tab4" onclick="showCategory('design', this)">Елементи дизайну</button>
+    </div>
+    
+    <div id="cat-paving" class="product-grid category-content active">
+      <div class="p-card">
+        <img src="https://rivbruk.com.ua/wp-content/uploads/2022/04/advans.png" alt="Адванс">
+        <p class="p-brand">РІВБРУК</p>
+        <h3>Адванс</h3>
+        <button class="p-btn">Детальніше</button>
+      </div>
+      <div class="p-card">
+        <img src="https://rivbruk.com.ua/wp-content/uploads/2022/04/podviyne-t.png" alt="Подвійне Т">
+        <p class="p-brand">РІВБРУК</p>
+        <h3>Подвійне Т</h3>
+        <button class="p-btn">Детальніше</button>
+      </div>
+    </div>
+
+    <div id="cat-borders" class="product-grid category-content">
+      <div class="p-card">
+        <img src="https://rivbruk.com.ua/wp-content/uploads/2022/04/bordyur.png" alt="Бордюр">
+        <p class="p-brand">РІВБРУК</p>
+        <h3>Бордюр тротуарний</h3>
+        <button class="p-btn">Детальніше</button>
+      </div>
+    </div>
+
+    <div id="cat-blocks" class="product-grid category-content">
+      <div class="p-card">
+        <img src="https://rivbruk.com.ua/wp-content/uploads/2022/05/blok-stinovij.png" alt="Блок">
+        <p class="p-brand">РІВБРУК</p>
+        <h3>Блок стіновий</h3>
+        <button class="p-btn">Детальніше</button>
+      </div>
+    </div>
+
+    <div id="cat-design" class="product-grid category-content">
+       <p style="grid-column: 1/-1;">Товари розділу Дизайн скоро будуть додані...</p>
+    </div>
+  </section>
+
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
